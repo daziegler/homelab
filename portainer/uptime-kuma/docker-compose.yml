@@ -1,11 +1,13 @@
 services:
-  uptime-kuma:
-    container_name: uptime-kuma
+  uptime_kuma:
+    container_name: uptime_kuma
     image: louislam/uptime-kuma:1
     restart: unless-stopped
     volumes:
-      - ./uptime-kuma:/app/data
+      - /opt/docker_volumes/uptime_kuma/data:/app/data
     ports:
       - "3001:3001"
     environment:
       - TZ=Europe/Berlin
+    security_opt:
+      - no-new-privileges:true
