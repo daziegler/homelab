@@ -19,7 +19,7 @@
           type: pihole
           url: https://avernus.ninehells.de/
           version: 6
-          key: test
+          key: {{HOMEPAGE_VAR_PIHOLE_PASSWORD}}
     - PVE:
         icon: proxmox.png
         ping: https://prox.ninehells.de

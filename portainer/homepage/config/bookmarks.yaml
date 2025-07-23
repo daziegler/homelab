@@ -12,8 +12,8 @@
     - ReCaptcha:
         - abbr: rc
           icon: google
-          href: https://www.google.com/recaptcha/admin/site/730480858
+          href: https://www.google.com/recaptcha/admin/
     - App Passwords:
         - abbr: ap
           icon: google
-          href: https://myaccount.google.com/apppasswords
+          href: https://myaccount.google.com/apppasswords/
