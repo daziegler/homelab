@@ -1,0 +1,4 @@
+---
+portainer-docker:
+  host: dockerproxy
+  port: 2375

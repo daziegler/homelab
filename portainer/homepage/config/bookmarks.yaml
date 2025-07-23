@@ -1,0 +1,19 @@
+---
+
+- Developer:
+    - Github Homelab Repo:
+        - abbr: GH
+          icon: github
+          href: https://github.com/daziegler/homelab/
+    - Github Wedding Site Repo:
+        - abbr: GH
+          icon: github
+          href: https://github.com/daziegler/weddingsite/
+    - ReCaptcha:
+        - abbr: rc
+          icon: google
+          href: https://www.google.com/recaptcha/admin/site/730480858
+    - App Passwords:
+        - abbr: ap
+          icon: google
+          href: https://myaccount.google.com/apppasswords

@@ -1,0 +1,96 @@
+---
+# https://gethomepage.dev/configs/services/
+
+- Network:
+    - FritzBox:
+        icon: fritzbox.png
+        href: http://192.168.178.1
+        widget:
+          type: fritzbox
+          url: http://192.168.178.1
+          fields: ["connectionStatus", "uptime", "maxDown", "maxUp"]
+    - Pi-Hole:
+        icon: pi-hole.png
+        ping: https://avernus.ninehells.de/admin/
+        href: https://avernus.ninehells.de/admin/
+        description: AD Blocker
+        siteMonitor: https://avernus.ninehells.de/admin
+        widget:
+          type: pihole
+          url: https://avernus.ninehells.de/
+          version: 6
+          key: test
+    - PVE:
+        icon: proxmox.png
+        ping: https://prox.ninehells.de
+        href: https://prox.ninehells.de
+        description: Hypervisor
+        widget:
+          type: proxmox
+          url: https://prox.ninehells.de
+          username: {{HOMEPAGE_VAR_PROXMOX_USERNAME}}
+          password: {{HOMEPAGE_VAR_PROXMOX_PASSWORD}}
+          node: prox
+
+- Storage:
+    - Synology:
+        icon: synology-cloud-sync.png
+        ping: https://nas.ninehells.de
+        href: https://nas.ninehells.de
+        widget:
+          type: diskstation
+          url: https://nas.ninehells.de
+          username: {{HOMEPAGE_VAR_SYNOLOGY_USERNAME}}
+          password: {{HOMEPAGE_VAR_SYNOLOGY_PASSWORD}}
+          volume: volume_1
+
+- Hosting:
+    - Pterodactyl:
+        icon: pterodactyl.png
+        ping: https://games.ninehells.de/
+        href: https://games.ninehells.de/
+        widget:
+          type: pterodactyl
+          url: https://games.ninehells.de/
+          key: {{HOMEPAGE_VAR_PTERODACTYL_KEY}}
+
+- Various:
+
+    - NPM:
+        icon: nginx-proxy-manager.png
+        ping: https://npm.ninehells.de
+        href: https://npm.ninehells.de
+        server: portainer-docker
+        container: nginx_proxy_manager
+        widget:
+          type: npm
+          url: https://npm.ninehells.de
+          username: {{HOMEPAGE_VAR_NPM_USERNAME}}
+          password: {{HOMEPAGE_VAR_NPM_PASSWORD}}
+
+    - Portainer:
+        icon: portainer.png
+        ping: https://portainer.ninehells.de
+        href: https://portainer.ninehells.de
+        description: Container Management
+        server: portainer-docker
+        container: portainer
+        showStats: true
+        widget:
+          type: portainer
+          url: https://portainer.ninehells.de
+          env: {{HOMEPAGE_VAR_PORTAINER_ENV}}
+          key: {{HOMEPAGE_VAR_PORTAINER_KEY}}
+
+    - Uptime-Kuma:
+        icon: uptime-kuma.png
+        ping: https://status.ninehells.de
+        href: https://status.ninehells.de
+        description: Container Monitoring
+        server: portainer-docker
+        container: uptime_kuma
+        showStats: true
+        widget:
+          type: uptimekuma
+          url: https://status.ninehells.de
+          slug: ninehells
