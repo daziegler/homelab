@@ -12,6 +12,8 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro # Mounted as read-only
     restart: unless-stopped
+    networks:
+      - homepage_net
   homepage:
     image: ghcr.io/gethomepage/homepage:latest
     container_name: homepage
@@ -19,10 +21,12 @@ services:
       - 3000:3000
     volumes:
       - /opt/docker_volumes/homepage/config:/app/config
-    restart: unless-stopped
     env_file:
       - stack.env
-    environment:
-      HOMEPAGE_ALLOWED_HOSTS: $HOMEPAGE_ALLOWED_HOSTS
-      PUID: $PUID
-      PGID: $PGID
+    restart: unless-stopped
+    networks:
+      - homepage_net
+
+networks:
+  homepage_net:
+    driver: bridge
