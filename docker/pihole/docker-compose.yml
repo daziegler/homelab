@@ -13,7 +13,6 @@ services:
     env_file: .env
     environment:
       TZ: 'Europe/Berlin'
-      FTLCONF_dns_listeningMode: 'all'
     volumes:
       - /opt/docker_volumes/etc-pihole:/etc/pihole
     cap_add:
