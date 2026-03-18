@@ -1,0 +1,78 @@
+services:
+
+  paperless:
+    image: ghcr.io/paperless-ngx/paperless-ngx:latest
+    container_name: paperless
+    restart: unless-stopped
+    depends_on:
+      - paperless-db
+      - paperless-redis
+    ports:
+      - "8010:8000"
+    env_file:
+      - stack.env
+    volumes:
+      - /mnt/nas/paperless/data:/usr/src/paperless/data
+      - /mnt/nas/paperless/media:/usr/src/paperless/media
+      - /mnt/nas/paperless/consume:/usr/src/paperless/consume
+      - /opt/docker-volumes/paperless/export:/usr/src/paperless/export
+    environment:
+      PAPERLESS_REDIS: redis://paperless-redis:6379
+      PAPERLESS_DBHOST: paperless-db
+      PAPERLESS_DBNAME: paperless
+      PAPERLESS_DBUSER: paperless
+      PAPERLESS_DBPASS: ${DB_PASSWORD}
+      PAPERLESS_SECRET_KEY: ${SECRET_KEY}
+      PAPERLESS_URL: ${PAPERLESS_URL}
+      PAPERLESS_TIME_ZONE: Europe/Berlin
+      PAPERLESS_OCR_LANGUAGE: deu+eng
+      USERMAP_UID: "1000"
+      USERMAP_GID: "1000"
+      PAPERLESS_CONSUMER_POLLING: "60"
+    networks:
+      - paperless-net
+
+  paperless-db:
+    image: postgres:16-alpine
+    container_name: paperless-db
+    restart: unless-stopped
+    env_file:
+      - stack.env
+    volumes:
+      - /opt/docker-volumes/paperless/postgres:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: paperless
+      POSTGRES_USER: paperless
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    networks:
+      - paperless-net
+
+  paperless-redis:
+    image: redis:7-alpine
+    container_name: paperless-redis
+    restart: unless-stopped
+    volumes:
+      - /opt/docker-volumes/paperless/redis:/data
+    networks:
+      - paperless-net
+
+  syncthing:
+    image: syncthing/syncthing:latest
+    container_name: syncthing
+    restart: unless-stopped
+    ports:
+      - "8384:8384"
+      - "22000:22000"
+      - "22000:22000/udp"
+    volumes:
+      - /mnt/nas/paperless/syncthing-config:/var/syncthing/config
+      - /mnt/nas/paperless/consume:/sync/consume
+    environment:
+      PUID: "1000"
+      PGID: "1000"
+    networks:
+      - paperless-net
+
+networks:
+  paperless-net:
+    driver: bridge
